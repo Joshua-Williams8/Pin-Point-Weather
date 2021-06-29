@@ -6,7 +6,7 @@ $(document).ready(function () {
   var removeMarkerArray = [];
   var marker;
 
-  mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN
+  mapboxgl.accessToken = "pk.eyJ1Ijoiam9zaHVhODciLCJhIjoiY2tvZWdlc2J4MDhwMjJ3anh4amFtc3E5ZiJ9.wfvdwsZvL2DaQRwQPbUlXA"
   var map = new mapboxgl.Map({
     container: 'map', // container ID
     style: 'mapbox://styles/mapbox/dark-v10', // style URL
@@ -18,7 +18,7 @@ $(document).ready(function () {
 
   function weatherAjax(lng, lat) {
 
-    $.ajax(" https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lng + "&exclude=current,hourly,minutely&units=imperial&appid=" + OWM_TOKEN).done(function (resp) {
+    $.ajax(" https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lng + "&exclude=current,hourly,minutely&units=imperial&appid=" + "3b1249c494eafbb7ec1bd59ce57987e3").done(function (resp) {
       resp.daily.splice(5, 3);
       // console.log(resp)
       weatherData = resp
