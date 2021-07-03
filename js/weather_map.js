@@ -1,13 +1,13 @@
 $(document).ready(function () {
-  var weatherData;
-  var dateTimesStrings = [];
-// var todayDate
-// var today
-  var removeMarkerArray = [];
-  var marker;
+  let weatherData;
+  let dateTimesStrings = [];
+// let todayDate
+// let today
+  let removeMarkerArray = [];
+  let marker;
 
   mapboxgl.accessToken = "pk.eyJ1Ijoiam9zaHVhODciLCJhIjoiY2tvZWdlc2J4MDhwMjJ3anh4amFtc3E5ZiJ9.wfvdwsZvL2DaQRwQPbUlXA"
-  var map = new mapboxgl.Map({
+  let map = new mapboxgl.Map({
     container: 'map', // container ID
     style: 'mapbox://styles/mapbox/dark-v10', // style URL
     center: [-97.6709, 31.0689], // starting position [lng, lat]
@@ -30,11 +30,11 @@ $(document).ready(function () {
       //  dt * 1000? but uh oof.
 
       function dayTimeHTML(day) {
-        var result = new Date(weatherData.daily[day].dt * 1000).toString();
+        let result = new Date(weatherData.daily[day].dt * 1000).toString();
         // console.log(result);
-        var resultArray = result.split(" ");
+        let resultArray = result.split(" ");
         // console.log(resultArray);
-        var resultObject = {
+        let resultObject = {
           day: resultArray[0],
           month: resultArray[1],
           date: resultArray[2],
@@ -47,11 +47,11 @@ $(document).ready(function () {
       }
 
       function dateHTML(day) {
-        var result = new Date(weatherData.daily[day].dt * 1000).toString();
+        let result = new Date(weatherData.daily[day].dt * 1000).toString();
         // console.log(result);
-        var resultArray = result.split(" ");
+        let resultArray = result.split(" ");
         // console.log(resultArray);
-        var resultObject = {
+        let resultObject = {
           day: resultArray[0],
           month: resultArray[1],
           date: resultArray[2],
@@ -71,7 +71,7 @@ $(document).ready(function () {
       }
 
       function rainHTML(day) {
-        var stuff = weatherData.daily[day].pop.toFixed(2) * 100;
+        let stuff = weatherData.daily[day].pop.toFixed(2) * 100;
         stuff = stuff.toFixed(0);
         return stuff + "%";
       }
@@ -83,12 +83,12 @@ $(document).ready(function () {
 
       function capitalizeFirst(string) {
 
-        var stringArray = string.toLowerCase().split(" ");
-        var resultArray = [];
+        let stringArray = string.toLowerCase().split(" ");
+        let resultArray = [];
         stringArray.forEach(function (element, index) {
-          var elementArray = element.split("");
+          let elementArray = element.split("");
           // console.log(elementArray)
-          var firstLetter = elementArray[0].toUpperCase();
+          let firstLetter = elementArray[0].toUpperCase();
           // console.log(firstLetter)
           elementArray.splice(0, 1, firstLetter);
           // console.log(elementArray)
@@ -129,7 +129,7 @@ $(document).ready(function () {
       }
 
       loadData();
-      var newCenter = {
+      let newCenter = {
         lng: lng,
         lat: lat
       };
@@ -140,18 +140,16 @@ $(document).ready(function () {
       }
       $("#markerLocation").html("");
 
-      var testCode;
-      // console.log(reverseGeocode(newCenter,MAPBOX_ACCESS_TOKEN))
-      // reverseGeocode(newCenter,MAPBOX_ACCESS_TOKEN)
-      reverseGeocode(newCenter, MAPBOX_ACCESS_TOKEN).then(function (info) {
+      let testCode;
+      reverseGeocode(newCenter, "pk.eyJ1Ijoiam9zaHVhODciLCJhIjoiY2tvZWdlc2J4MDhwMjJ3anh4amFtc3E5ZiJ9.wfvdwsZvL2DaQRwQPbUlXA").then(function (info) {
 
         testCode = info.toString();
-        var resultArray = testCode.split(", ");
+        let resultArray = testCode.split(", ");
         resultArray.shift();
         testCode = resultArray.join(", ");
         // console.log(testCode);
 
-        // var markerInfo = markerNewLocation(newCenter)
+        // let markerInfo = markerNewLocation(newCenter)
         $("#markerLocation").html(
           testCode
         );
@@ -170,7 +168,7 @@ $(document).ready(function () {
 
       marker.on("dragend", function () {
         // console.log(marker.getLngLat());
-        var geoCenter = {
+        let geoCenter = {
           lng: marker.getLngLat().lng,
           lat: marker.getLngLat().lat
         }
@@ -181,7 +179,7 @@ $(document).ready(function () {
     });
   }
 
-  var defaultCenter =
+  let defaultCenter =
     [-97.6709, 31.0689]
   ;
   weatherAjax(defaultCenter[0], defaultCenter[1]);
@@ -198,16 +196,16 @@ $(document).ready(function () {
   });
 
   $("#inputMapStyle").change(function () {
-    var selected = $(this).val();
+    let selected = $(this).val();
     // console.log(selected)
     map.setStyle(selected)
   });
 
   // $("#btn").click(function () {
-  //   var userInput = $("#input").val();
-  //   geocode(userInput, MAPBOX_ACCESS_TOKEN).then(function (info) {
+  //   let userInput = $("#input").val();
+  //   geocode(userInput, "pk.eyJ1Ijoiam9zaHVhODciLCJhIjoiY2tvZWdlc2J4MDhwMjJ3anh4amFtc3E5ZiJ9.wfvdwsZvL2DaQRwQPbUlXA").then(function (info) {
   //     console.log(info);
-  //     var newCenter = {
+  //     let newCenter = {
   //       lng: info[0],
   //       lat: info[1]
   //     };
@@ -218,58 +216,24 @@ $(document).ready(function () {
   // });
 
   $("#geoSearch").click(function () {
-    var search = $("#inputGeoSearch").val();
+    let search = $("#inputGeoSearch").val();
     // console.log(search);
-    geocode(search, MAPBOX_ACCESS_TOKEN).then(function (info) {
+    geocode(search, "pk.eyJ1Ijoiam9zaHVhODciLCJhIjoiY2tvZWdlc2J4MDhwMjJ3anh4amFtc3E5ZiJ9.wfvdwsZvL2DaQRwQPbUlXA").then(function (info) {
       // console.log(info);
-      var geoCenter = {
+      let geoCenter = {
         lng: info[0],
         lat: info[1]
       };
 
       map.flyTo({center: geoCenter, zoom: 9,});
 
-      // var markerNew = new mapboxgl.Marker({
-      //   draggable: false,
-      //   color: "blue",
-      //
-      // })
-      //   .setLngLat(geoCenter)
-      //   .addTo(map);
-
-
-      // removeMarkerArray.push(markerNew);
       console.log(geoCenter)
       weatherAjax(geoCenter.lng, geoCenter.lat)
     });
   });
 
 
-// var removeMarkerArray = [];
-//
-// resLoc.forEach(function (res, index) {
-//   var testMark = new mapboxgl.Marker({
-//     draggable: false,
-//     color: res.color,
-//
-//   })
-//     .setLngLat([res.lat, res.lng])
-//     .addTo(map);
-//   removeMarkerArray.push(testMark);
-//
-//   var testPopup = new mapboxgl.Popup()
-//     .setHTML("<div class=\"card\" >\n" +
-//       res.picture +
-//       "  <div class=\"card-body\">\n" +
-//       "    <h5 class=\"card-title\">" +res.name+ "</h5>\n" +
-//       "    <p class=\"card-text\">" + res.info + "</p>\n" +
-//       "    <a href=\"#\" class=\"btn btn-primary\">Go somewhere</a>\n" +
-//       "  </div>\n" +
-//       "</div>")
-//     .addTo(map);
-//
-//   testMark.setPopup(testPopup).togglePopup();
-// });
+
 });
 
 
